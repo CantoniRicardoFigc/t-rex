@@ -40,6 +40,27 @@ var line = {
     y: 650,
     color: "black"
 };
+var tree = {
+  width: 20,
+  height: 50,
+  x: 500,
+  y: 600,
+  color: "black"
+};
+var tree1 = {
+  width: 20,
+  height: 80,
+  x: 850,
+  y: 570,
+  color: "black"
+};
+var tree2 = {
+  width: 20,
+  height: 65,
+  x: 1300,
+  y: 585,
+  color: "black"
+};
 var animatedObject = {
     speedX: 0,
     speedY: 0,
@@ -57,28 +78,9 @@ var animatedObject = {
 function updateGameArea() {
     myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);
     myGameArea.draw(line);
+    myGameArea.draw(tree);
+    myGameArea.draw(tree1);
+    myGameArea.draw(tree2);
     myGameArea.drawGameObject(animatedObject);
 }
-
-function component(width, height, color, x, y, type) {
-    this.type = type;
-    this.width = width;
-    this.height = height;
-    this.x = x;
-    this.y = y;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.gravity = 0.05;
-    this.gravitySpeed = 0;
-    this.update = function() {
-      ctx = myGameArea.context;
-      ctx.fillStyle = color;
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-    this.newPos = function() {
-      this.gravitySpeed += this.gravity;
-      this.x += this.speedX;
-      this.y += this.speedY + this.gravitySpeed;
-    }
-  }
 
