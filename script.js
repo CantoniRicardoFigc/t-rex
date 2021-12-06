@@ -1,9 +1,15 @@
+
 function startGame() {
 
-    myGameArea.start();
-    animatedObject.loadImages();
-    
+  myGameArea.start();
+
+  palazzo.loadImages();
+  palazzo1.loadImages();
+  palazzo2.loadImages();
+  animatedObject.loadImages();
+
 }
+
 var myGameArea = {
     
     canvas : document.createElement("canvas"),
@@ -30,57 +36,110 @@ var myGameArea = {
           gameObject.width,
           gameObject.height
         );
-        }
+      }
 }
 
+var palazzo = {
+  speedX: 0,
+  speedY: 0,
+  width: 65,
+  height: 100,
+  x: 450,
+  y: 550,
+
+loadImages: function() {
+    this.image = new Image(this.width, this.height);
+    this.image.src = "t2.png"; //Qui metti una tua immagine
+  }
+};
+var palazzo1 = {
+  speedX: 0,
+  speedY: 0,
+  width: 65,
+  height: 120,
+  x: 900,
+  y: 530,
+
+loadImages: function() {
+    this.image = new Image(this.width, this.height);
+    this.image.src = "t3.png"; //Qui metti una tua immagine
+  }
+};
+var palazzo2 = {
+  speedX: 0,
+  speedY: 0,
+  width: 65,
+  height: 100,
+  x: 1250,
+  y: 550,
+
+loadImages: function() {
+    this.image = new Image(this.width, this.height);
+    this.image.src = "t2.png"; //Qui metti una tua immagine
+  }
+};
+
 var line = {
-    width: 1500,
-    height: 5,
-    x: 0,
-    y: 650,
-    color: "black"
-};
-var tree = {
-  width: 20,
-  height: 50,
-  x: 500,
-  y: 600,
+  width: 1500,
+  height: 5,
+  x: 0,
+  y: 650,
   color: "black"
 };
-var tree1 = {
-  width: 20,
-  height: 80,
-  x: 850,
-  y: 570,
-  color: "black"
-};
-var tree2 = {
-  width: 20,
-  height: 65,
-  x: 1300,
-  y: 585,
-  color: "black"
-};
+
 var animatedObject = {
     speedX: 0,
     speedY: 0,
     width: 85,
     height: 100,
-    x: 10,
+    x: 50,
     y: 550,
-  
   loadImages: function() {
       this.image = new Image(this.width, this.height);
-      this.image.src = "trex.png"; //Qui metti una tua immagine
+      this.image.src = "t-rexxxxx.jpg"; //Qui metti una tua immagine
     }
   };
 
 function updateGameArea() {
-    myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);
+  jump();
+  gravity();
+  myObject();
+  myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);    
+}
+
+function myObject() {
     myGameArea.draw(line);
-    myGameArea.draw(tree);
-    myGameArea.draw(tree1);
-    myGameArea.draw(tree2);
+    myGameArea.drawGameObject(palazzo);
+    myGameArea.drawGameObject(palazzo1);
+    myGameArea.drawGameObject(palazzo2);
     myGameArea.drawGameObject(animatedObject);
 }
+
+let speedUp=0;
+let airTime=0;
+let fallSpeed=10;
+
+function gravity(){
+  if (animatedObject.y + animatedObject.height < line.y){
+    animatedObject.y += fallSpeed;
+  } else {
+      airTime = 0;
+  }
+}
+
+function jump() {
+  animatedObject.y -= speedUp;
+  airTime += speedUp;
+}
+
+document.addEventListener("keydown",(event)=> {
+  if (event.key == "a") {
+    speedUp=20;
+  }
+});
+document.addEventListener("keyup",(event)=> {
+  if (event.key == "a") {
+    speedUp=0;
+  }
+});
 
