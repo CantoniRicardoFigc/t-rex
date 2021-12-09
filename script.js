@@ -8,6 +8,8 @@ function startGame() {
   palazzo2.loadImages();
   animatedObject.loadImages();
 
+  console.log("ciao");
+
 }
 
 var myGameArea = {
@@ -101,10 +103,10 @@ var animatedObject = {
   };
 
 function updateGameArea() {
+  myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);
   jump();
   gravity();
-  myObject();
-  myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);    
+  myObject();    
 }
 
 function myObject() {
