@@ -3,12 +3,11 @@ function startGame() {
 
   myGameArea.start();
 
+  sfondo.loadImages();
   palazzo.loadImages();
   palazzo1.loadImages();
   palazzo2.loadImages();
   animatedObject.loadImages();
-
-  console.log("ciao");
 
 }
 
@@ -17,7 +16,7 @@ var myGameArea = {
     canvas : document.createElement("canvas"),
 
     start: function() {
-        this.canvas.width = 1600;
+        this.canvas.width = 2000;
         this.canvas.height = 700;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -41,54 +40,59 @@ var myGameArea = {
       }
 }
 
+//disegno palazzi\trex\sfondo
+var sfondo = {
+  speedX: 0,
+  speedY: 0,
+  width: 5000,
+  height: 1200,
+  x: 0,
+  y: 30,
+
+loadImages: function() {
+    this.image = new Image(this.width, this.height);
+    this.image.src = "tsfondo2.png"; //Qui metti una tua immagine
+  }
+};
 var palazzo = {
   speedX: 0,
   speedY: 0,
   width: 65,
-  height: 100,
+  height: 80,
   x: 450,
-  y: 550,
+  y: 570,
 
 loadImages: function() {
     this.image = new Image(this.width, this.height);
-    this.image.src = "t2.png"; //Qui metti una tua immagine
+    this.image.src = "troccia.png"; //Qui metti una tua immagine
   }
 };
 var palazzo1 = {
   speedX: 0,
   speedY: 0,
   width: 65,
-  height: 120,
+  height: 100,
   x: 900,
-  y: 530,
+  y: 550,
 
 loadImages: function() {
     this.image = new Image(this.width, this.height);
-    this.image.src = "t3.png"; //Qui metti una tua immagine
+    this.image.src = "troccia.png"; //Qui metti una tua immagine
   }
 };
 var palazzo2 = {
   speedX: 0,
   speedY: 0,
   width: 65,
-  height: 100,
+  height: 80,
   x: 1250,
-  y: 550,
+  y: 570,
 
 loadImages: function() {
     this.image = new Image(this.width, this.height);
-    this.image.src = "t2.png"; //Qui metti una tua immagine
+    this.image.src = "troccia.png"; //Qui metti una tua immagine
   }
 };
-
-var line = {
-  width: 1500,
-  height: 5,
-  x: 0,
-  y: 650,
-  color: "black"
-};
-
 var animatedObject = {
     speedX: 0,
     speedY: 0,
@@ -98,19 +102,21 @@ var animatedObject = {
     y: 550,
   loadImages: function() {
       this.image = new Image(this.width, this.height);
-      this.image.src = "t-rexxxxx.jpg"; //Qui metti una tua immagine
+      this.image.src = "tdinosauro.png"; //Qui metti una tua immagine
     }
   };
 
 function updateGameArea() {
+  document.getElementById("punteggio").innerHTML = x
   myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);
   jump();
   gravity();
-  myObject();    
+  myObject(); 
+  punteggio();   
 }
 
 function myObject() {
-    myGameArea.draw(line);
+    myGameArea.drawGameObject(sfondo);
     myGameArea.drawGameObject(palazzo);
     myGameArea.drawGameObject(palazzo1);
     myGameArea.drawGameObject(palazzo2);
@@ -119,10 +125,10 @@ function myObject() {
 
 let speedUp=0;
 let airTime=0;
-let fallSpeed=10;
+let fallSpeed=12;
 
 function gravity(){
-  if (animatedObject.y + animatedObject.height < line.y){
+  if (animatedObject.y + animatedObject.height < 650){
     animatedObject.y += fallSpeed;
   } else {
       airTime = 0;
@@ -134,14 +140,24 @@ function jump() {
   airTime += speedUp;
 }
 
+let x=0;
+let punt=false;
+//punteggio
+function punteggio() {
+  if (punt==false) {
+    x+=1;
+  }
+}
+//salto
 document.addEventListener("keydown",(event)=> {
   if (event.key == "a") {
-    speedUp=20;
+    speedUp=35;
   }
 });
 document.addEventListener("keyup",(event)=> {
   if (event.key == "a") {
     speedUp=0;
+    x+=10;
   }
 });
 
