@@ -59,7 +59,7 @@ var palazzo = {
   speedY: 0,
   width: 65,
   height: 80,
-  x: 450,
+  x: 400,
   y: 570,
 
 loadImages: function() {
@@ -85,7 +85,7 @@ var palazzo2 = {
   speedY: 0,
   width: 65,
   height: 80,
-  x: 1250,
+  x: 1380,
   y: 570,
 
 loadImages: function() {
@@ -112,7 +112,31 @@ function updateGameArea() {
   jump();
   gravity();
   myObject(); 
-  punteggio();   
+  punteggio(); 
+
+  collision(palazzo);
+  collision(palazzo1);
+  collision(palazzo2);
+
+  rocks(palazzo);
+  rocks(palazzo1);
+  rocks(palazzo2);
+}
+
+let n=5
+function rocks(palazzo) {
+  if (palazzo.x>0) {
+    palazzo.x -= n;
+  }
+  else {
+    palazzo.x = 1500;
+    if (n<=15) {
+      n+=0.2;
+    }
+    if (fallSpeed<=12) {
+      fallSpeed+=0.2;
+    }
+  }
 }
 
 function myObject() {
@@ -125,7 +149,7 @@ function myObject() {
 
 let speedUp=0;
 let airTime=0;
-let fallSpeed=12;
+let fallSpeed=6;
 
 function gravity(){
   if (animatedObject.y + animatedObject.height < 650){
@@ -136,19 +160,20 @@ function gravity(){
 }
 
 function jump() {
+  if (airTime < 300)
   animatedObject.y -= speedUp;
   airTime += speedUp;
 }
 
 let x=0;
 let punt=false;
-//punteggio
+
 function punteggio() {
   if (punt==false) {
     x+=1;
   }
 }
-//salto
+
 document.addEventListener("keydown",(event)=> {
   if (event.key == "a") {
     speedUp=35;
@@ -157,7 +182,18 @@ document.addEventListener("keydown",(event)=> {
 document.addEventListener("keyup",(event)=> {
   if (event.key == "a") {
     speedUp=0;
-    x+=10;
   }
 });
+
+let allerta=false;
+function collision(box) { //collisioni
+  let playerWidth = animatedObject.x + animatedObject.width;
+  let playerHeight = animatedObject.y + animatedObject.height;
+  let boxWidth = box.x + box.width + 5;
+
+  if (playerWidth > box.x + 10 & animatedObject.x < boxWidth - 10 & playerHeight > box.y + 40){
+    location.reload();
+    alert("Hai perso! punteggio finale: "+x);
+  }
+}
 
