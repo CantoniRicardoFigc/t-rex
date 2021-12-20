@@ -217,7 +217,7 @@ function collision(box) { //collisioni
   let playerHeight = animatedObject.y + animatedObject.height;
   let boxWidth = box.x + box.width + 5;
 
-  if (playerWidth > box.x + 10 & animatedObject.x < boxWidth - 10 & playerHeight > box.y + 40){
+  if (playerWidth > box.x + 60 & animatedObject.x < boxWidth - 60 & playerHeight > box.y + 40){
     location.reload();
     alert("Hai perso! punteggio finale: "+x);
   }
