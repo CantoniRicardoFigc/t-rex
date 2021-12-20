@@ -96,15 +96,36 @@ loadImages: function() {
 var animatedObject = {
     speedX: 0,
     speedY: 0,
-    width: 85,
-    height: 100,
+    width: 150,
+    height: 120,
     x: 50,
-    y: 550,
-  loadImages: function() {
-      this.image = new Image(this.width, this.height);
-      this.image.src = "tdinosauro.png"; //Qui metti una tua immagine
-    }
-  };
+    y: 530,
+    imageList: [], //Vettore che conterrà tutte le immagini caricate
+    contaFrame: 0, //Tiene conto di quanti frame sono passati
+    actualFrame: 0, //Specifica quale frame disegnare
+  
+    update: function() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.contaFrame++;
+      if (this.contaFrame == 5) {
+        this.contaFrame = 0;
+        this.actualFrame = (1 + this.actualFrame) % this.imageList.length;
+        //console.log(this.actualFrame);
+        this.image = this.imageList[this.actualFrame];
+      }
+    },
+
+    loadImages: function() {
+      for (imgPath of running) {
+       var img = new Image(this.width, this.height);
+       img.src = imgPath;
+       this.imageList.push(img);
+       //console.log(img);
+     }
+     this.image = this.imageList[this.actualFrame];
+   }
+ };
 
 function updateGameArea() {
   document.getElementById("punteggio").innerHTML = x
@@ -121,6 +142,8 @@ function updateGameArea() {
   rocks(palazzo);
   rocks(palazzo1);
   rocks(palazzo2);
+
+  animatedObject.update();
 }
 
 let n=5
@@ -135,6 +158,9 @@ function rocks(palazzo) {
     }
     if (fallSpeed<=12) {
       fallSpeed+=0.2;
+    }
+    if (contaFrame>=0) {
+      contaFrame-=1
     }
   }
 }
