@@ -22,6 +22,7 @@ var myGameArea = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 
         this.interval = setInterval(updateGameArea, 20);
+        this.interval = setInterval(updateGameAreaSuond, 5000);
       },    
 
     draw: function(component) {
@@ -111,7 +112,6 @@ var animatedObject = {
       if (this.contaFrame == 5) {
         this.contaFrame = 0;
         this.actualFrame = (1 + this.actualFrame) % this.imageList.length;
-        //console.log(this.actualFrame);
         this.image = this.imageList[this.actualFrame];
       }
     },
@@ -121,7 +121,6 @@ var animatedObject = {
        var img = new Image(this.width, this.height);
        img.src = imgPath;
        this.imageList.push(img);
-       //console.log(img);
      }
      this.image = this.imageList[this.actualFrame];
    }
@@ -144,6 +143,9 @@ function updateGameArea() {
   rocks(palazzo2);
 
   animatedObject.update();
+}
+
+function updateGameAreaSuond() {
 }
 
 let n=5
@@ -203,6 +205,8 @@ function punteggio() {
 document.addEventListener("keydown",(event)=> {
   if (event.key == "a") {
     speedUp=35;
+    var snd = new Audio("vsoundReapJump.mp3");
+    snd.play();
   }
 });
 document.addEventListener("keyup",(event)=> {
@@ -222,4 +226,3 @@ function collision(box) { //collisioni
     alert("Hai perso! punteggio finale: "+x);
   }
 }
-
