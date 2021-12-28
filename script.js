@@ -205,7 +205,7 @@ function punteggio() {
 document.addEventListener("keydown",(event)=> {
   if (event.key == "a") {
     speedUp=35;
-    var snd = new Audio("vsoundReapJump.mp3");
+    var snd = new Audio("vJJ.mp3");
     snd.play();
   }
 });
