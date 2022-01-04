@@ -4,6 +4,7 @@ function startGame() {
   myGameArea.start();
 
   sfondo.loadImages();
+  uccello.loadImages();
   palazzo.loadImages();
   palazzo1.loadImages();
   palazzo2.loadImages();
@@ -41,7 +42,7 @@ var myGameArea = {
       }
 }
 
-//disegno palazzi\trex\sfondo
+//disegno palazzi\trex\sfondo\uccello
 var sfondo = {
   speedX: 0,
   speedY: 0,
@@ -94,6 +95,19 @@ loadImages: function() {
     this.image.src = "troccia.png"; //Qui metti una tua immagine
   }
 };
+var uccello = {
+  speedX: 0,
+  speedY: 0,
+  width: 30,
+  height: 20,
+  x: 1800,
+  y: 370,
+
+loadImages: function() {
+    this.image = new Image(this.width, this.height);
+    this.image.src = "uccellino.png"; //Qui metti una tua immagine
+  }
+};
 var animatedObject = {
     speedX: 0,
     speedY: 0,
@@ -142,6 +156,8 @@ function updateGameArea() {
   rocks(palazzo1);
   rocks(palazzo2);
 
+  moveUcc(uccello);
+
   animatedObject.update();
 }
 
@@ -167,12 +183,23 @@ function rocks(palazzo) {
   }
 }
 
+let u=3
+function moveUcc(uccello) {
+  if (uccello.x>0) {
+    uccello.x-=u;
+  }
+  else {
+    uccello.x=1800;
+  }
+}
+
 function myObject() {
     myGameArea.drawGameObject(sfondo);
     myGameArea.drawGameObject(palazzo);
     myGameArea.drawGameObject(palazzo1);
     myGameArea.drawGameObject(palazzo2);
     myGameArea.drawGameObject(animatedObject);
+    myGameArea.drawGameObject(uccello);
 }
 
 let speedUp=0;
