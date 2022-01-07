@@ -243,6 +243,7 @@ document.addEventListener("keyup",(event)=> {
 });
 
 let allerta=false;
+
 function collision(box) { //collisioni
   let playerWidth = animatedObject.x + animatedObject.width;
   let playerHeight = animatedObject.y + animatedObject.height;
