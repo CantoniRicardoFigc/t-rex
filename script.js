@@ -3,7 +3,8 @@ function startGame() {
 
   myGameArea.start();
 
-  sfondo.loadImages();
+  myGameArea.draw(terra);
+
   uccello.loadImages();
   palazzo.loadImages();
   palazzo1.loadImages();
@@ -42,19 +43,13 @@ var myGameArea = {
       }
 }
 
-//disegno palazzi\trex\sfondo\uccello
-var sfondo = {
-  speedX: 0,
-  speedY: 0,
-  width: 5000,
-  height: 1200,
+//disegno palazzi\trex\terra\uccello
+var terra = {
+  width: 2000,
+  height: 100,
   x: 0,
-  y: 30,
-
-loadImages: function() {
-    this.image = new Image(this.width, this.height);
-    this.image.src = "tsfondo2.png"; //Qui metti una tua immagine
-  }
+  y: 620,
+  color: "red"
 };
 var palazzo = {
   speedX: 0,
@@ -143,6 +138,8 @@ var animatedObject = {
 function updateGameArea() {
   document.getElementById("punteggio").innerHTML = x
   myGameArea.canvas.getContext("2d").clearRect(0,0, myGameArea.canvas.width, myGameArea.canvas.height);
+  myGameArea.draw(terra);
+
   jump();
   gravity();
   myObject(); 
@@ -165,6 +162,7 @@ function updateGameAreaSuond() {
 }
 
 let n=5
+
 function rocks(palazzo) {
   if (palazzo.x>0) {
     palazzo.x -= n;
@@ -184,6 +182,7 @@ function rocks(palazzo) {
 }
 
 let u=3
+
 function moveUcc(uccello) {
   if (uccello.x>0) {
     uccello.x-=u;
@@ -194,7 +193,6 @@ function moveUcc(uccello) {
 }
 
 function myObject() {
-    myGameArea.drawGameObject(sfondo);
     myGameArea.drawGameObject(palazzo);
     myGameArea.drawGameObject(palazzo1);
     myGameArea.drawGameObject(palazzo2);
