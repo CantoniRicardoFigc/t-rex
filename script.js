@@ -51,6 +51,7 @@ var terra = {
   y: 620,
   color: "red"
 };
+
 var palazzo = {
   speedX: 0,
   speedY: 0,
